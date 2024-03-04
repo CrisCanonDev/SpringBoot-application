@@ -1,10 +1,8 @@
 package com.ccdev.firstWeb;
 
-import com.ccdev.firstWeb.entities.People;
 import com.ccdev.firstWeb.repository.PeopleRepository;
 import com.ccdev.firstWeb.service.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -12,7 +10,7 @@ import java.sql.SQLOutput;
 import java.util.List;
 
 @SpringBootApplication
-public class FirstWebSpringbootApplication implements CommandLineRunner {
+public class FirstWebSpringbootApplication{
 
 	@Autowired
 	private PeopleRepository peopleRepository;
@@ -22,6 +20,7 @@ public class FirstWebSpringbootApplication implements CommandLineRunner {
 		SpringApplication.run(FirstWebSpringbootApplication.class, args);
 	}
 
+	/*
 	@Override
 	public void run(String... args) throws Exception {
 		peopleService.createPerson( new People(6L, "Kieran",30));
@@ -41,10 +40,7 @@ public class FirstWebSpringbootApplication implements CommandLineRunner {
 		peopleService.deletePerson(10L);
 
 		System.out.println("People in the table : "+ peopleService.quanityOfPeople());
-
-
-
-
-
 	}
+		*/
+
 }
