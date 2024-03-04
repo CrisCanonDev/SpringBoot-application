@@ -32,7 +32,7 @@ public class PeopleServiceImpl implements PeopleService {
         if(personDDBB != null){
             personDDBB.setName(person.getName());
             personDDBB.setAge(person.getAge());
-            return personDDBB;
+            return peopleRepository.save(personDDBB);
         }
         return null;
     }
