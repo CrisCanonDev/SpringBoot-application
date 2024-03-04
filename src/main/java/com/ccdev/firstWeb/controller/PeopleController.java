@@ -7,11 +7,9 @@ import com.ccdev.firstWeb.service.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.PipedWriter;
 import java.util.List;
 
 @Controller
@@ -28,7 +26,7 @@ public class PeopleController {
     }
 
     @GetMapping("/new")
-    public String showForm(Model model){
+    public String showFormAddPerson(Model model){
         model.addAttribute("person",new People());
         model.addAttribute("action","/people/new");
         return "form";
@@ -40,4 +38,15 @@ public class PeopleController {
         return "redirect:/people";
     }
 
+    @GetMapping("/edit/{id}")
+    public String showFormModifPerson(@PathVariable Long id, @ModelAttribute People person, Model model){
+        model.addAttribute("person",person);
+        model.addAttribute("action","/people/edit/"+id);
+        return "form";
+    }
+    @PostMapping("edit/{id}")
+    public String modifyPerson(@PathVariable Long id, @ModelAttribute People person){
+        peopleService.updatePerson(id,person);
+        return "redirect:/people";
+    }
 }
