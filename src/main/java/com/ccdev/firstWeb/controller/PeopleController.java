@@ -37,7 +37,7 @@ public class PeopleController {
     @PostMapping("/new")
     public String addPerson(@ModelAttribute People person){
         peopleService.createPerson(person);
-        return "redirect:/personas";
+        return "redirect:/people";
     }
 
 }
