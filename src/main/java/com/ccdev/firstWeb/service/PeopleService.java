@@ -9,5 +9,6 @@ public interface PeopleService {
     People createPerson(People person);
     People updatePerson(Long id, People person);
     void deletePerson(Long id);
+    Long quanityOfPeople();
 
 }

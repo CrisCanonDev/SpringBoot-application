@@ -36,9 +36,12 @@ public class PeopleServiceImpl implements PeopleService {
         }
         return null;
     }
-
     @Override
     public void deletePerson(Long id) {
         peopleRepository.deleteById(id);
+    }
+    @Override
+    public Long quanityOfPeople(){
+        return  peopleRepository.count();
     }
 }
