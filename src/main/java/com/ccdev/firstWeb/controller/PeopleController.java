@@ -24,4 +24,10 @@ public class PeopleController {
         return "list";
     }
 
+    @GetMapping("/new")
+    public String showForm(Model model){
+        model.addAttribute("person",new People());
+        return "form";
+    }
+
 }
