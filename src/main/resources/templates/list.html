@@ -18,6 +18,8 @@
             <td th:text="${people.age}"></td>
             <td>
                 <a th:href="@{/people/edit/{id}(id=${people.id})}">Edit</a>
+                <a th:href="@{/people/delete/{id}(id=${people.id})}">Delete</a>
+
             </td>
         </tr>
     </table>
