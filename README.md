@@ -5,7 +5,7 @@ Connection with database locally, functionalities implentation to list, add, del
 Usage of thymeleaf as template engine to show table informations and provide its modification.
 
 
-Including concepts and proper spring developing approach
+Including concepts and proper spring methodologies developing approach
 - Annotations
 - Spring MVC layout
 - Dependencies inyection
