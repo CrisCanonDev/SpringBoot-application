@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org"
+        xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -15,15 +16,15 @@
     <table class="table table-bordered">
         <tr>
             <th scope="col">ID</th>
-            <th  scope="col">NAME</th>
-            <th  scope="col">AGE</th>
-            <th  scope="col">ACTIONS</th>
+            <th scope="col">NAME</th>
+            <th scope="col">AGE</th>
+            <th scope="col" sec:authorize="hasRole('ADMIN')">ACTIONS</th>
         </tr>
         <tr th:each="people : ${listPeople}">
             <th scope="row" th:text="${people.id}"></th>
             <td th:text="${people.name}"></td>
             <td th:text="${people.age}"></td>
-            <td>
+            <td sec:authorize="hasRole('ADMIN')">
                 <a class="btn btn-secondary" th:href="@{/people/edit/{id}(id=${people.id})}">Edit</a>
                 <a class="btn btn-danger" th:href="@{/people/delete/{id}(id=${people.id})}">Delete</a>
 
@@ -31,7 +32,7 @@
         </tr>
     </table>
 </div>
-<div class="mx-auto" style="width: 300px">
+<div sec:authorize="hasRole('ADMIN')" class="mx-auto" style="width: 300px">
     <a class="btn btn-primary" href="/people/new">Add New person</a>
 </div>
 

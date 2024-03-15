@@ -29,7 +29,8 @@ public class WebSecurityConfiguration {
         return new InMemoryUserDetailsManager(user1, user2);
     }
 
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+    @Bean
+    protected SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests(
                 auth -> auth
                         .requestMatchers("/people").permitAll()
