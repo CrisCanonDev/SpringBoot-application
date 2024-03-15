@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <title>People's list</title>
 </head>
 <body>
-    <h1>PEOPLE'S LIST</h1>
-    <table>
+<div class="container mb-2">
+    <h1 class="mt-2 mb-2">PEOPLE'S LIST</h1>
+    <table class="table table-bordered">
         <tr>
-            <th>ID</th>
-            <th>NAME</th>
-            <th>AGE</th>
+            <th scope="col">ID</th>
+            <th  scope="col">NAME</th>
+            <th  scope="col">AGE</th>
+            <th  scope="col">ACTIONS</th>
         </tr>
         <tr th:each="people : ${listPeople}">
-            <td th:text="${people.id}"></td>
+            <th scope="row" th:text="${people.id}"></th>
             <td th:text="${people.name}"></td>
             <td th:text="${people.age}"></td>
             <td>
-                <a th:href="@{/people/edit/{id}(id=${people.id})}">Edit</a>
-                <a th:href="@{/people/delete/{id}(id=${people.id})}">Delete</a>
+                <a class="btn btn-secondary" th:href="@{/people/edit/{id}(id=${people.id})}">Edit</a>
+                <a class="btn btn-danger" th:href="@{/people/delete/{id}(id=${people.id})}">Delete</a>
 
             </td>
         </tr>
     </table>
-
-    <a href="/people/new">Add New person</a>
-
+</div>
+<div class="mx-auto" style="width: 300px">
+    <a class="btn btn-primary" href="/people/new">Add New person</a>
+</div>
 
 </body>
 </html>
