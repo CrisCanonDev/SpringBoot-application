@@ -13,7 +13,7 @@ import java.io.PipedWriter;
 import java.util.List;
 
 @Controller
-@RequestMapping("/people")
+@RequestMapping({"/people","/"})
 public class PeopleController {
     @Autowired
     private PeopleService peopleService;
