@@ -8,22 +8,28 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class WebSecurityConfiguration {
     @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+    @Bean
     public InMemoryUserDetailsManager userDetailsManager(){
         UserDetails user1 = User.builder()
                 .username("user")
-                .password("{bcrypt}$2a$10$BVEEp0oSWKBf2/rLNhlVsOZogejPMai1qiJqClI9qa4MlgnhSVj1a")
+                .password("$2a$10$BVEEp0oSWKBf2/rLNhlVsOZogejPMai1qiJqClI9qa4MlgnhSVj1a")
                 .roles("USER")
                 .build();
 
         UserDetails user2 = User.builder()
                 .username("admin")
-                .password("{bcrypt}$2a$10$BVEEp0oSWKBf2/rLNhlVsOZogejPMai1qiJqClI9qa4MlgnhSVj1a")
+                .password("$2a$10$BVEEp0oSWKBf2/rLNhlVsOZogejPMai1qiJqClI9qa4MlgnhSVj1a")
                 .roles("ADMIN")
                 .build();
         return new InMemoryUserDetailsManager(user1, user2);
@@ -37,7 +43,9 @@ public class WebSecurityConfiguration {
                         .requestMatchers("/people/new").hasAnyRole("ADMIN")
                         .requestMatchers("/people/delete/*", "people/edit/*").hasRole("ADMIN")
                         .anyRequest().authenticated() )
-                .httpBasic(Customizer.withDefaults())
+                .formLogin(form -> form
+                        .loginPage("/login"))
+                .logout(l -> l.permitAll())
                 .exceptionHandling(ex -> ex.accessDeniedPage("/403"));
         return httpSecurity.build();
     }
