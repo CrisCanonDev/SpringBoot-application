@@ -1,13 +1,13 @@
 package com.ccdev.firstWeb.service;
 
 import com.ccdev.firstWeb.entities.User;
+import com.ccdev.firstWeb.entities.Role;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
 
 @AllArgsConstructor
 public class MyUserDetails implements UserDetails {
@@ -15,8 +15,13 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authorities = new SimpleGrantedAuthority(user.getRole());
-        return Arrays.asList(authorities);
+        Set<Role> roles = user.getRoles();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+        for(Role role:roles){
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return authorities;
     }
 
     @Override

@@ -12,7 +12,12 @@
 </head>
 <body>
 <div class="container mb-2">
-    <p class="fs-3 fw-bold" th:inline="text">Welcome <span sec:authentication="name"></span></p>
+    <div sec:authorize="isAuthenticated()">
+        <p class="fs-3 fw-bold" th:inline="text">Welcome <span sec:authentication="name"></span></p>
+        &nbsp;
+        <p class="fs-3 fw-bold" th:inline="text">Roles <span sec:authentication="principal.authorities"></span></p>
+
+    </div>
     <form th:action="@{/logout}" method="POST">
         <input class="btn btn-info" type="submit" value="Logout">
     </form>
@@ -22,21 +27,21 @@
             <th scope="col">ID</th>
             <th scope="col">NAME</th>
             <th scope="col">AGE</th>
-            <th scope="col" sec:authorize="hasRole('ADMIN')">ACTIONS</th>
+            <th scope="col" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_EDITOR','ROLE_DEVELOPER','ROLE_CREATOR')">ACTIONS</th>
         </tr>
         <tr th:each="people : ${listPeople}">
             <th scope="row" th:text="${people.id}"></th>
             <td th:text="${people.name}"></td>
             <td th:text="${people.age}"></td>
-            <td sec:authorize="hasRole('ADMIN')">
-                <a class="btn btn-secondary" th:href="@{/people/edit/{id}(id=${people.id})}">Edit</a>
-                <a class="btn btn-danger" th:href="@{/people/delete/{id}(id=${people.id})}">Delete</a>
+            <td sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_EDITOR','ROLE_DEVELOPER')">
+                <a sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_EDITOR')" class="btn btn-secondary" th:href="@{/people/edit/{id}(id=${people.id})}">Edit</a>
+                <a sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_DEVELOPER')" class="btn btn-danger" th:href="@{/people/delete/{id}(id=${people.id})}">Delete</a>
 
             </td>
         </tr>
     </table>
 </div>
-<div sec:authorize="hasRole('ADMIN')" class="mx-auto" style="width: 300px">
+<div sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_DEVELOPER','ROLE_CREATOR')" class="mx-auto" style="width: 300px">
     <a class="btn btn-primary" href="/people/new">Add New person</a>
 </div>
 
