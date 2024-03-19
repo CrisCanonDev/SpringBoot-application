@@ -3,6 +3,11 @@ package com.ccdev.firstWeb.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Set;
+
 @Entity
 @Table(name = "users")
 @Data
@@ -16,5 +21,13 @@ public class User {
     private String Username;
     private boolean enabled;
     private String password;
-    private String role;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name="user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
+
 }
